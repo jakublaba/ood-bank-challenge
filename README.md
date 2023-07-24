@@ -39,8 +39,7 @@ date       || credit  || debit  || balance
 
 #### Extensions
 - [ ] Generate ordered bank statements between 2 dates
-- [ ] Available funds should be calculated based on a complete transaction history, not a variable that gets updated
-- [ ] Disable withdraws if the withdraw amount exceeds the available funds
+- [ ] Disable withdraws if the withdraw amount exceeds the available funds. Available funds must be calculated based on a complete transaction history, not a variable that gets updated
 - [ ] Allow adding a 500 overdraft to the account
 - [ ] Different account types (Savings, Investment, Checking)
 - [ ] Deposit limits of 20,000 per year on Savings accounts
