@@ -32,10 +32,17 @@ date       || credit  || debit  || balance
 #### Standard
 - [ ] Meets the spec
 - [ ] Developed test-first
-- [ ] Passes tests and code is linted
+- [ ] Passes tests
 - [ ] Encapsulates adding and storing Transactions in a class
 - [ ] Encapsulates Statement formatting in a class
 - [ ] Encapsulates Transaction data in a class
 
-#### Extended
-- [ ] See a teacher!
+#### Extensions
+- [ ] Generate ordered bank statements between 2 dates
+- [ ] Available funds should be calculated based on a complete transaction history, not a variable that gets updated
+- [ ] Disable withdraws if the withdraw amount exceeds the available funds
+- [ ] Allow adding a 500 overdraft to the account
+- [ ] Different account types (Savings, Investment, Checking)
+- [ ] Deposit limits of 20,000 per year on Savings accounts
+- [ ] A front-end online banking app
+- [ ] Generate PDFs of bank statements
