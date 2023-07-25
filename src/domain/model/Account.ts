@@ -1,9 +1,12 @@
 import User from '@model/User'
 import Transaction, { createTransaction } from '@model/Transaction'
 import TransactionType from '@model/TransactionType'
+import TransactionStatus from '@model/TransactionStatus'
 
 const Deposit = TransactionType.Values.Deposit
 const Withdrawal = TransactionType.Values.Withdrawal
+const Accepted = TransactionStatus.Values.Accepted
+const Rejected = TransactionStatus.Values.Rejected
 
 class Account {
   private readonly _transactions: Transaction[]
@@ -20,6 +23,7 @@ class Account {
 
   get balance(): number {
     return this._transactions
+      .filter(t => t.status === Accepted)
       .map(t => {
         switch (t.type) {
           case Deposit: return t.amount;
@@ -30,13 +34,24 @@ class Account {
   }
 
   deposit(amount: number) {
-    const transaction = createTransaction(amount, Deposit)
+    const transaction = createTransaction(amount, Deposit, Accepted)
     this._transactions.push(transaction)
   }
 
   withdraw(amount: number) {
-    const transaction = createTransaction(amount, Withdrawal)
+    const status = amount <= this.balance ? Accepted : Rejected
+    const transaction = createTransaction(amount, Withdrawal, status)
     this._transactions.push(transaction)
+  }
+
+  generateStatement(): string {
+    let statement = " Date | Type | Status | Amount | Balance \n"
+    let statementBalance = this.balance
+    this.transactions.reverse().forEach(t => {
+      statement += ` ${t.date} | ${t.type} | ${t.status} | ${t.amount} | ${statementBalance} \n`
+      statementBalance -= t.status === Accepted ? t.amount : 0
+    })
+    return statement
   }
 }
 

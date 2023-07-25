@@ -2,7 +2,6 @@ import Account from '@model/Account'
 import User from '@model/User'
 import TransactionType from '@model/TransactionType'
 import TransactionStatus from '@model/TransactionStatus'
-import { TransactionSchema } from '@model/Transaction'
 
 describe('Account unit tests', () => {
   const owner: User = {
@@ -50,9 +49,9 @@ describe('Account unit tests', () => {
     account.withdraw(withdrawalAmount)
 
     expect(account.transactions.length).toEqual(1)
-    expect(account.transactions[1].type).toEqual(TransactionType.Values.Withdrawal)
-    expect(account.transactions[1].status).toEqual(TransactionStatus.Values.Rejected)
-    expect(account.transactions[1].amount).toEqual(withdrawalAmount)
+    expect(account.transactions[0].type).toEqual(TransactionType.Values.Withdrawal)
+    expect(account.transactions[0].status).toEqual(TransactionStatus.Values.Rejected)
+    expect(account.transactions[0].amount).toEqual(withdrawalAmount)
     expect(account.balance).toEqual(0)
   })
 
@@ -69,7 +68,7 @@ describe('Account unit tests', () => {
     expect(statement).toContain("Amount")
     expect(statement).toContain("Accepted")
     expect(statement).toContain("Rejected")
-    expect(statement).toContain(depositAmount)
-    expect(statement).toContain(withdrawalAmount)
+    expect(statement).toContain(depositAmount.toString())
+    expect(statement).toContain(withdrawalAmount.toString())
   })
 })
