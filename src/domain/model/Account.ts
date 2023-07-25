@@ -9,10 +9,10 @@ const Accepted = TransactionStatus.Values.Accepted
 const Rejected = TransactionStatus.Values.Rejected
 
 abstract class Account {
-  private readonly _transactions: Transaction[]
+  protected readonly _transactions: Transaction[]
 
   protected constructor(
-    private _owner: User
+    protected _owner: User
   ) {
     this._transactions = []
   }
