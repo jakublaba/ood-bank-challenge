@@ -75,11 +75,16 @@ describe('CheckingAccount unit tests', function() {
   })
 
   it('Should not allow withdrawal above overdraft limit', () => {
-    account.withdraw(100)
+    account.withdraw(1)
+    account.requestOverdraft()
+    account.reviewOverdraftRequest(true)
+    account.withdraw(600)
 
-    expect(account.transactions.length).toBe(1)
-    expect(account.transactions[0].type).toEqual(TransactionType.Values.Withdrawal)
-    expect(account.transactions[0].status).toEqual(TransactionStatus.Values.Rejected)
+    expect(account.transactions.length).toBe(2)
+    account.transactions.forEach(t => {
+      expect(t.type).toEqual(TransactionType.Values.Withdrawal)
+      expect(t.status).toEqual(TransactionStatus.Values.Rejected)
+    })
     expect(account.balance).toBe(0)
   })
 })

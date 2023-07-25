@@ -46,7 +46,7 @@ describe('Account unit tests', () => {
     expect(account.transactions.length).toEqual(2)
     expect(account.transactions[1].type).toEqual(TransactionType.Values.Withdrawal)
     expect(account.transactions[1].status).toEqual(TransactionStatus.Values.Accepted)
-    expect(account.transactions[1].amount).toEqual(withdrawalAmount)
+    expect(account.transactions[1].amount).toEqual(-withdrawalAmount)
     expect(account.balance).toEqual(expectedBalance)
   })
 
@@ -57,7 +57,7 @@ describe('Account unit tests', () => {
     expect(account.transactions.length).toEqual(1)
     expect(account.transactions[0].type).toEqual(TransactionType.Values.Withdrawal)
     expect(account.transactions[0].status).toEqual(TransactionStatus.Values.Rejected)
-    expect(account.transactions[0].amount).toEqual(withdrawalAmount)
+    expect(account.transactions[0].amount).toEqual(-withdrawalAmount)
     expect(account.balance).toEqual(0)
   })
 

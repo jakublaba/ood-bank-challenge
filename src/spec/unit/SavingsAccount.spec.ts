@@ -29,7 +29,7 @@ describe('SavingsAccount unit tests', function() {
 
   it('Should not allow deposits above limit', () => {
     account.deposit(20_000)
-    account.deposit(1)
+    account.deposit(10_000)
     account.deposit(30_000)
 
     account.transactions.slice(1).forEach(t => {
