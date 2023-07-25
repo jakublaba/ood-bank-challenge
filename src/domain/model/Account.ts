@@ -9,6 +9,11 @@ class Account {
     this._transactions = []
   }
 
+  get transactions(): Transaction[] {
+    // TODO
+    return []
+  }
+
   get balance(): number {
     // TODO
     return 0

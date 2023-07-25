@@ -4,7 +4,7 @@ import TransactionType from '@model/TransactionType'
 export const TransactionSchema = z.object({
   id: z.string().uuid('Not a valid UUID'),
   type: TransactionType,
-  amount: z.bigint().positive('Transaction amount must be positive'),
+  amount: z.number().positive('Transaction amount must be positive'),
   date: z.date()
 })
 
