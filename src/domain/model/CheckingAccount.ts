@@ -1,7 +1,10 @@
 import Account from '@model/Account'
 import User from '@model/User'
+import { createTransaction } from '@model/Transaction'
+import TransactionType from '@model/TransactionType'
+import TransactionStatus from '@model/TransactionStatus'
 
-const OVERDRAFT_AMOUNT = 500
+const ALLOWED_OVERDRAFT_AMOUNT = 500
 
 class CheckingAccount extends Account {
   private _overdraftAllowed: boolean = false
@@ -19,12 +22,31 @@ class CheckingAccount extends Account {
     return this._overdraftRequested
   }
 
+  withdraw(amount: number) {
+    const overdraft = Math.max(0, -this.balance)
+    const status = this.overdraftAllowed ?
+      overdraft + amount <= ALLOWED_OVERDRAFT_AMOUNT ?
+        TransactionStatus.Values.Accepted :
+        TransactionStatus.Values.Rejected :
+      TransactionStatus.Values.Rejected
+    const transaction = createTransaction(
+      -amount,
+      TransactionType.Values.Withdrawal,
+      status
+    )
+    this._transactions.push(transaction)
+  }
+
   requestOverdraft() {
-    // TODO
+    this._overdraftRequested = true
   }
 
   reviewOverdraftRequest(decision: boolean) {
-    // TODO
+    if (!this.overdraftRequested) {
+      return
+    }
+    this._overdraftAllowed = decision
+    this._overdraftRequested = false
   }
 }
 
