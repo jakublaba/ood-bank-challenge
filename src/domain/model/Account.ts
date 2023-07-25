@@ -8,10 +8,10 @@ const Withdrawal = TransactionType.Values.Withdrawal
 const Accepted = TransactionStatus.Values.Accepted
 const Rejected = TransactionStatus.Values.Rejected
 
-class Account {
+abstract class Account {
   private readonly _transactions: Transaction[]
 
-  constructor(
+  protected constructor(
     private _owner: User
   ) {
     this._transactions = []
