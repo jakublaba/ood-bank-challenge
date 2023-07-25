@@ -31,7 +31,7 @@ date       || credit  || debit  || balance
 
 #### Standard
 - [ ] Meets the spec
-- [ ] Developed test-first
+- [ ] Developed test-first (commit your tests before your source code to provide evidence of this)
 - [ ] Passes tests
 - [ ] Encapsulates adding and storing Transactions in a class
 - [ ] Encapsulates Statement formatting in a class
