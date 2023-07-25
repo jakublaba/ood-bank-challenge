@@ -1,6 +1,8 @@
 import Account from '@model/Account'
 import User from '@model/User'
 import TransactionType from '@model/TransactionType'
+import TransactionStatus from '@model/TransactionStatus'
+import { TransactionSchema } from '@model/Transaction'
 
 describe('Account unit tests', () => {
   const owner: User = {
@@ -24,6 +26,7 @@ describe('Account unit tests', () => {
 
     expect(account.transactions.length).toEqual(1)
     expect(account.transactions[0].type).toEqual(TransactionType.Values.Deposit)
+    expect(account.transactions[0].status).toEqual(TransactionStatus.Values.Accepted)
     expect(account.transactions[0].amount).toEqual(depositAmount)
     expect(account.balance).toEqual(depositAmount)
   })
@@ -37,7 +40,36 @@ describe('Account unit tests', () => {
 
     expect(account.transactions.length).toEqual(2)
     expect(account.transactions[1].type).toEqual(TransactionType.Values.Withdrawal)
+    expect(account.transactions[1].status).toEqual(TransactionStatus.Values.Accepted)
     expect(account.transactions[1].amount).toEqual(withdrawalAmount)
     expect(account.balance).toEqual(expectedBalance)
+  })
+
+  it('Invalid withdrawal should add transaction to history and not affect balance', () => {
+    const withdrawalAmount = 12.5
+    account.withdraw(withdrawalAmount)
+
+    expect(account.transactions.length).toEqual(1)
+    expect(account.transactions[1].type).toEqual(TransactionType.Values.Withdrawal)
+    expect(account.transactions[1].status).toEqual(TransactionStatus.Values.Rejected)
+    expect(account.transactions[1].amount).toEqual(withdrawalAmount)
+    expect(account.balance).toEqual(0)
+  })
+
+  it('Should contain correct information in account statement', () => {
+    const depositAmount = 2.5
+    const withdrawalAmount = 3.5
+    account.deposit(depositAmount)
+    account.withdraw(withdrawalAmount)
+    const statement = account.generateStatement()
+
+    expect(statement).toContain("Date")
+    expect(statement).toContain("Type")
+    expect(statement).toContain("Status")
+    expect(statement).toContain("Amount")
+    expect(statement).toContain("Accepted")
+    expect(statement).toContain("Rejected")
+    expect(statement).toContain(depositAmount)
+    expect(statement).toContain(withdrawalAmount)
   })
 })
