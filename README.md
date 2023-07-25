@@ -41,7 +41,7 @@ date       || credit  || debit  || balance
 - [ ] Generate ordered bank statements between 2 dates
 - [ ] Disable withdraws if the withdraw amount exceeds the available funds. Available funds must be calculated based on a complete transaction history, not a variable that gets updated
 - [ ] Allow adding a 500 overdraft to the account
-- [ ] Different account types (Savings, Investment, Checking)
+- [ ] Different account types (Savings, Investment, Checking). Savings & Investment accounts cant have overdrafts, Checking accounts can. Investment accounts accumulate 2% interest every month.
 - [ ] Deposit limits of 20,000 per year on Savings accounts
 - [ ] A front-end online banking app
 - [ ] Generate PDFs of bank statements
