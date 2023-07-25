@@ -3,6 +3,12 @@ import User from '@model/User'
 import TransactionType from '@model/TransactionType'
 import TransactionStatus from '@model/TransactionStatus'
 
+class AccountImpl extends Account {
+  constructor(owner: User) {
+    super(owner)
+  }
+}
+
 describe('Account unit tests', () => {
   const owner: User = {
     id: 'd4da3928-1436-4f85-8a5f-3e71babac32f',
@@ -11,7 +17,7 @@ describe('Account unit tests', () => {
   let account: Account
 
   beforeEach(() => {
-    account = new Account(owner)
+    account = new AccountImpl(owner)
   })
 
   it('Should create blank account', () => {
