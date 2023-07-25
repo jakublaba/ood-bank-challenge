@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { TransactionSchema } from './Transaction'
+import { TransactionSchema } from '@model/Transaction'
 
 const AccountStatementSchema = z.object({
   id: z.string().uuid('Not a valid UUID'),

@@ -1,5 +1,5 @@
-import User from './User'
-import Transaction from './Transaction'
+import User from '@model/User'
+import Transaction from '@model/Transaction'
 
 class Account {
   private _transactions: Transaction[]

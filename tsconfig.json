@@ -107,9 +107,9 @@
     "skipLibCheck": true,                                /* Skip type checking all .d.ts files. */
     "baseUrl": ".",
     "paths": {
-      "@domain": ["src/domain"],
-      "@infrastructure": ["src/infrastructure"]
+      "@model/*": ["src/domain/model/*"],
     }
   },
+  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }
