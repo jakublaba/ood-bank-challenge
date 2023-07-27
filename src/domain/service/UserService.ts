@@ -1,6 +1,6 @@
 import * as UserDao from '@dao/UserDao'
 import { v4 } from 'uuid'
-import ResourceNotFoundError from '../../infrastructure/error/ResourceNotFoundError'
+import ResourceNotFoundError from '@error/ResourceNotFoundError'
 
 export const createUser = (name: string) => {
   const user = {

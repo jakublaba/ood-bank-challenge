@@ -2,7 +2,12 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
-    "lib": ["es2017", "es7", "es6", "dom"],
+    "lib": [
+      "es2017",
+      "es7",
+      "es6",
+      "dom"
+    ],
     "declaration": true,
     "outDir": "dist",
     "esModuleInterop": true,
@@ -10,13 +15,31 @@
     "moduleResolution": "node",
     "baseUrl": "./src",
     "paths": {
-      "@model/*": ["domain/model/*"],
-      "@service/*": ["domain/service/*"],
-      "@controller/*": ["infrastructure/controller/*"],
-      "@dao/*": ["infrastructure/dao/*"],
-      "@router/*": ["infrastructure/router/*"]
+      "@model/*": [
+        "domain/model/*"
+      ],
+      "@service/*": [
+        "domain/service/*"
+      ],
+      "@controller/*": [
+        "infrastructure/controller/*"
+      ],
+      "@dao/*": [
+        "infrastructure/dao/*"
+      ],
+      "@error/*": [
+        "infrastructure/error/*"
+      ],
+      "@router/*": [
+        "infrastructure/router/*"
+      ]
     }
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

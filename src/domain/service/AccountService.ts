@@ -4,8 +4,8 @@ import CheckingAccount from '@model/account/CheckingAccount'
 import SavingsAccount from '@model/account/SavingsAccount'
 import InvestmentAccount from '@model/account/InvestmentAccount'
 import AccountType from '@model/account/AccountType'
-import ResourceNotFoundError from '../../infrastructure/error/ResourceNotFoundError'
-import InvalidAccountOperationError from '../../infrastructure/error/InvalidAccountOperationError'
+import ResourceNotFoundError from '@error/ResourceNotFoundError'
+import InvalidAccountOperationError from '@error/InvalidAccountOperationError'
 
 export const openAccount = (userUUID: string, accountType: AccountType) => {
   const owner = UserService.getOneUser(userUUID)
