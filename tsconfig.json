@@ -12,8 +12,9 @@
     "paths": {
       "@model/*": ["domain/model/*"],
       "@service/*": ["domain/service/*"],
-      "@router/*": ["infrastructure/router/*"],
-      "@controller/*": ["infrastructure/controller/*"]
+      "@controller/*": ["infrastructure/controller/*"],
+      "@dao/*": ["infrastructure/dao/*"],
+      "@router/*": ["infrastructure/router/*"]
     }
   },
   "include": ["src"],

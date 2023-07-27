@@ -1,6 +1,6 @@
 import { z } from "zod"
-import TransactionType from '@model/TransactionType'
-import TransactionStatus from '@model/TransactionStatus'
+import TransactionType from '@model/transaction/TransactionType'
+import TransactionStatus from '@model/transaction/TransactionStatus'
 import {v4} from "uuid";
 
 export const createTransaction = (

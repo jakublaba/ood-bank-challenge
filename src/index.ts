@@ -6,7 +6,7 @@ import bodyParser from "body-parser";
 const app = express()
 app.use(bodyParser.json())
 app.use('/user', UserRouter)
-app.use('/user/:id/accounts', AccountRouter)
+app.use('/user/:uuid/accounts', AccountRouter)
 
 const port = 3000
 app.listen(port, () => {

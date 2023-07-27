@@ -1,7 +1,7 @@
-import User from '@model/User'
-import Transaction, { createTransaction } from '@model/Transaction'
-import TransactionType from '@model/TransactionType'
-import TransactionStatus from '@model/TransactionStatus'
+import User from '@model/user/User'
+import Transaction, { createTransaction } from '@model/transaction/Transaction'
+import TransactionType from '@model/transaction/TransactionType'
+import TransactionStatus from '@model/transaction/TransactionStatus'
 import {v4} from "uuid";
 
 abstract class Account {

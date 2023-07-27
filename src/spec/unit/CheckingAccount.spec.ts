@@ -1,12 +1,12 @@
-import User from '@model/User'
-import Account from '@model/Account'
-import CheckingAccount from '@model/CheckingAccount'
-import TransactionType from '@model/TransactionType'
-import TransactionStatus from '@model/TransactionStatus'
+import User from '@model/user/User'
+import Account from '@model/account/Account'
+import CheckingAccount from '@model/account/CheckingAccount'
+import TransactionType from '@model/transaction/TransactionType'
+import TransactionStatus from '@model/transaction/TransactionStatus'
 
 describe('CheckingAccount unit tests', function() {
   const owner: User = {
-    id: 'd4da3928-1436-4f85-8a5f-3e71babac32f',
+    uuid: 'd4da3928-1436-4f85-8a5f-3e71babac32f',
     name: 'John'
   }
   let account: CheckingAccount
