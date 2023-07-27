@@ -16,7 +16,7 @@ export const openAccount = async (req: Request, res: Response) => {
     res.status(201).location(resourcePath).send()
   } catch (err) {
     if (err instanceof ResourceNotFoundError) {
-      res.status(404).send(err.message)
+      res.status(err.status).send(err.message)
     } else {
       res.status(500).send('Server has encountered a skill issue')
     }
@@ -26,7 +26,11 @@ export const openAccount = async (req: Request, res: Response) => {
 export const fetchUsersAccounts = async (req: Request, res: Response) => {
   const userUUID = req.params.userUUID
   const accountFilter = req.query.accountFilter as AccountType | undefined
-  // TODO return 400 for invalid accountFilter param value
+  if (
+    !['checking', 'savings', 'investment', undefined].includes(accountFilter)
+  ) {
+    res.status(400).send('Invalid accountFilter query param value')
+  }
   try {
     const accounts = await AccountService.fetchUsersAccounts(
       userUUID,
@@ -35,7 +39,7 @@ export const fetchUsersAccounts = async (req: Request, res: Response) => {
     res.send(accounts)
   } catch (err) {
     if (err instanceof ResourceNotFoundError) {
-      res.status(404).send(err.message)
+      res.status(err.status).send(err.message)
     } else {
       res.status(500).send('Server has encountered a skill issue')
     }
@@ -49,7 +53,7 @@ export const fetchAccount = async (req: Request, res: Response) => {
     res.send(account)
   } catch (err) {
     if (err instanceof ResourceNotFoundError) {
-      res.status(404).send(err.message)
+      res.status(err.status).send(err.message)
     } else {
       res.status(500).send('Server has encountered a skill issue')
     }
@@ -63,7 +67,7 @@ export const fetchBalance = async (req: Request, res: Response) => {
     res.send(balance)
   } catch (err) {
     if (err instanceof ResourceNotFoundError) {
-      res.status(404).send(err.message)
+      res.status(err.status).send(err.message)
     } else {
       res.status(500).send('Server has encountered a skill issue')
     }
@@ -78,7 +82,7 @@ export const deposit = async (req: Request, res: Response) => {
     res.status(204).send()
   } catch (err) {
     if (err instanceof ResourceNotFoundError) {
-      res.status(404).send(err.message)
+      res.status(err.status).send(err.message)
     } else {
       res.status(500).send('Server has encountered a skill issue')
     }
@@ -93,7 +97,7 @@ export const withdraw = async (req: Request, res: Response) => {
     res.status(204).send()
   } catch (err) {
     if (err instanceof ResourceNotFoundError) {
-      res.status(404).send(err.message)
+      res.status(err.status).send(err.message)
     } else {
       res.status(500).send('Server has encountered a skill issue')
     }
