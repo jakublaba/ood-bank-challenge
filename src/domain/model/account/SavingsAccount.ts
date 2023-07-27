@@ -1,8 +1,8 @@
-import Account from '@model/Account'
-import User from '@model/User'
-import TransactionStatus from '@model/TransactionStatus'
-import { createTransaction } from '@model/Transaction'
-import TransactionType from '@model/TransactionType'
+import Account from '@model/account/Account'
+import User from '@model/user/User'
+import TransactionStatus from '@model/transaction/TransactionStatus'
+import { createTransaction } from '@model/transaction/Transaction'
+import TransactionType from '@model/transaction/TransactionType'
 
 const DEPOSIT_LIMIT = 20_000
 

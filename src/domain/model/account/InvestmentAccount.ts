@@ -1,7 +1,7 @@
-import Account from '@model/Account'
-import User from '@model/User'
-import TransactionStatus from '@model/TransactionStatus'
-import TransactionType from '@model/TransactionType'
+import Account from '@model/account/Account'
+import User from '@model/user/User'
+import TransactionStatus from '@model/transaction/TransactionStatus'
+import TransactionType from '@model/transaction/TransactionType'
 
 const INTEREST_RATE = .02
 

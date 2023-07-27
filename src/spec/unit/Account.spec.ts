@@ -1,7 +1,7 @@
-import Account from '@model/Account'
-import User from '@model/User'
-import TransactionType from '@model/TransactionType'
-import TransactionStatus from '@model/TransactionStatus'
+import Account from '@model/account/Account'
+import User from '@model/user/User'
+import TransactionType from '@model/transaction/TransactionType'
+import TransactionStatus from '@model/transaction/TransactionStatus'
 
 class AccountImpl extends Account {
   constructor(owner: User) {
@@ -11,7 +11,7 @@ class AccountImpl extends Account {
 
 describe('Account unit tests', () => {
   const owner: User = {
-    id: 'd4da3928-1436-4f85-8a5f-3e71babac32f',
+    uuid: 'd4da3928-1436-4f85-8a5f-3e71babac32f',
     name: 'John'
   }
   let account: Account

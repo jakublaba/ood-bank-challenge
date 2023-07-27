@@ -1,8 +1,8 @@
-import Account from '@model/Account'
-import User from '@model/User'
-import { createTransaction } from '@model/Transaction'
-import TransactionType from '@model/TransactionType'
-import TransactionStatus from '@model/TransactionStatus'
+import Account from '@model/account/Account'
+import User from '@model/user/User'
+import { createTransaction } from '@model/transaction/Transaction'
+import TransactionType from '@model/transaction/TransactionType'
+import TransactionStatus from '@model/transaction/TransactionStatus'
 
 const ALLOWED_OVERDRAFT_AMOUNT = 500
 
