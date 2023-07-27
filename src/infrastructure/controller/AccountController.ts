@@ -4,6 +4,7 @@ import ResourceNotFoundError from '@error/ResourceNotFoundError'
 import InvalidAccountOperationError from '@error/InvalidAccountOperationError'
 import AccountType from '@model/account/AccountType'
 import { port } from '@entrypoint'
+import InvalidAccountFilterError from '@error/InvalidAccountFilterError'
 
 const extractUUIDs = (req: Request) => [req.params.userUUID, req.params.accUUID]
 
@@ -23,22 +24,33 @@ export const openAccount = async (req: Request, res: Response) => {
   }
 }
 
+const validateAccountFilter = (
+  filter: string | undefined,
+): AccountType | undefined => {
+  if (!['checking', 'savings', 'investment', undefined].includes(filter)) {
+    throw new InvalidAccountFilterError(
+      `${filter} invalid accountFilter query param value`,
+    )
+  }
+  return filter === undefined ? undefined : (filter as AccountType)
+}
+
 export const fetchUsersAccounts = async (req: Request, res: Response) => {
   const userUUID = req.params.userUUID
-  const accountFilter = req.query.accountFilter as AccountType | undefined
-  if (
-    !['checking', 'savings', 'investment', undefined].includes(accountFilter)
-  ) {
-    res.status(400).send('Invalid accountFilter query param value')
-  }
   try {
+    const accountFilter = validateAccountFilter(
+      req.query.accountFilter as string | undefined,
+    )
     const accounts = await AccountService.fetchUsersAccounts(
       userUUID,
       accountFilter,
     )
     res.send(accounts)
   } catch (err) {
-    if (err instanceof ResourceNotFoundError) {
+    if (
+      err instanceof ResourceNotFoundError ||
+      err instanceof InvalidAccountFilterError
+    ) {
       res.status(err.status).send(err.message)
     } else {
       res.status(500).send('Server has encountered a skill issue')
