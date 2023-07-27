@@ -3,13 +3,17 @@ import * as AccountDao from '@dao/AccountDao'
 import CheckingAccount from '@model/account/CheckingAccount'
 import SavingsAccount from '@model/account/SavingsAccount'
 import InvestmentAccount from '@model/account/InvestmentAccount'
-import AccountType from '@model/account/AccountType'
 import ResourceNotFoundError from '@error/ResourceNotFoundError'
 import InvalidAccountOperationError from '@error/InvalidAccountOperationError'
+import AccountType from '@model/account/AccountType'
+import Account from '@model/account/Account'
 
-export const openAccount = (userUUID: string, accountType: AccountType) => {
-  const owner = UserService.getOneUser(userUUID)
-  let account
+export const openAccount = async (
+  userUUID: string,
+  accountType: AccountType,
+) => {
+  const owner = await UserService.getOneUser(userUUID)
+  let account: Account
   switch (accountType) {
     case 'checking': {
       account = new CheckingAccount(owner)
@@ -23,17 +27,20 @@ export const openAccount = (userUUID: string, accountType: AccountType) => {
       account = new InvestmentAccount(owner)
       break
     }
+    default: {
+      throw new Error('Unexpected accountType value')
+    }
   }
-  AccountDao.saveAccount(account)
+  await AccountDao.saveAccount(account)
   return account.uuid
 }
 
-export const fetchUsersAccounts = (
+export const fetchUsersAccounts = async (
   userUUID: string,
   accountFilter?: AccountType,
 ) => {
-  const user = UserService.getOneUser(userUUID)
-  const accounts = AccountDao.getAllAccounts()
+  const user = await UserService.getOneUser(userUUID)
+  const accounts = await AccountDao.getAllAccounts()
 
   return accounts
     .filter((acc) => acc.owner === user)
@@ -55,26 +62,39 @@ export const fetchUsersAccounts = (
     })
 }
 
-const fetchAccount = (userUUID: string, accUUID: string) => {
-  const account = AccountDao.getAccount(accUUID)
+export const fetchAccount = async (userUUID: string, accUUID: string) => {
+  const account = await AccountDao.getAccount(accUUID)
   if (!account || account.owner.uuid !== userUUID) {
     throw new ResourceNotFoundError(accUUID)
   }
   return account
 }
 
-export const deposit = (userUUID: string, accUUID: string, amount: number) => {
-  const account = fetchAccount(userUUID, accUUID)
+export const fetchBalance = async (userUUID: string, accUUID: string) => {
+  const account = await fetchAccount(userUUID, accUUID)
+  return account.balance
+}
+
+export const deposit = async (
+  userUUID: string,
+  accUUID: string,
+  amount: number,
+) => {
+  const account = await fetchAccount(userUUID, accUUID)
   account.deposit(amount)
 }
 
-export const withdraw = (userUUID: string, accUUID: string, amount: number) => {
-  const account = fetchAccount(userUUID, accUUID)
+export const withdraw = async (
+  userUUID: string,
+  accUUID: string,
+  amount: number,
+) => {
+  const account = await fetchAccount(userUUID, accUUID)
   account.withdraw(amount)
 }
 
-export const requestOverdraft = (userUUID: string, accUUID: string) => {
-  const account = fetchAccount(userUUID, accUUID)
+export const requestOverdraft = async (userUUID: string, accUUID: string) => {
+  const account = await fetchAccount(userUUID, accUUID)
   if (!(account instanceof CheckingAccount)) {
     throw new InvalidAccountOperationError(
       'Overdraft is only possible on a checking account',
@@ -83,12 +103,12 @@ export const requestOverdraft = (userUUID: string, accUUID: string) => {
   account.requestOverdraft()
 }
 
-export const reviewOverdraft = (
+export const reviewOverdraftRequest = async (
   userUUID: string,
   accUUID: string,
   decision: boolean,
 ) => {
-  const account = fetchAccount(userUUID, accUUID)
+  const account = await fetchAccount(userUUID, accUUID)
   if (!(account instanceof CheckingAccount)) {
     throw new InvalidAccountOperationError(
       'Overdraft is only possible on a checking account',
@@ -97,7 +117,7 @@ export const reviewOverdraft = (
   account.reviewOverdraftRequest(decision)
 }
 
-export const closeAccount = (userUUID: string, accUUID: string) => {
-  const account = fetchAccount(userUUID, accUUID)
-  AccountDao.deleteAccount(account.uuid)
+export const closeAccount = async (userUUID: string, accUUID: string) => {
+  const account = await fetchAccount(userUUID, accUUID)
+  await AccountDao.deleteAccount(account.uuid)
 }

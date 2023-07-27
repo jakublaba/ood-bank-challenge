@@ -5,10 +5,10 @@ import bodyParser from 'body-parser'
 
 const app = express()
 app.use(bodyParser.json())
+app.use('/user/:userUUID/account', AccountRouter)
 app.use('/user', UserRouter)
-app.use('/user/:userUUID/accounts', AccountRouter)
 
-const port = 3000
+export const port = 3000
 app.listen(port, () => {
   console.log(`Listening on port ${port}`)
 })

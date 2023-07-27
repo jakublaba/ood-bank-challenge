@@ -2,10 +2,12 @@ import User from '@model/user/User'
 
 const users: Map<string, User> = new Map()
 
-export const saveUser = (user: User) => {
+export const saveUser = async (user: User) => {
   users.set(user.uuid, user)
 }
 
-export const getUser = (uuid: string) => users.get(uuid)
+export const getAllUsers = async () => [...users.values()]
 
-export const deleteUser = (uuid: string) => users.delete(uuid)
+export const getUser = async (uuid: string) => users.get(uuid)
+
+export const deleteUser = async (uuid: string) => users.delete(uuid)
