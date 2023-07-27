@@ -1,14 +1,14 @@
-import Account from '@model/Account'
-import User from '@model/User'
-import SavingsAccount from '@model/SavingsAccount'
+import express from 'express'
+import UserRouter from "@router/UserRouter";
+import AccountRouter from "@router/AccountRouter";
+import bodyParser from "body-parser";
 
-const owner: User = {
-  id: 'd4da3928-1436-4f85-8a5f-3e71babac32f',
-  name: 'John'
-}
-const acc = new SavingsAccount(owner)
-const deposits = [20_000, 10_000, 30_000, 40_000]
-deposits.forEach(d => {
-  acc.deposit(d)
-  console.log(`Deposited: ${d}, Remaining: ${acc.remainingDepositLimit()}`)
+const app = express()
+app.use(bodyParser.json())
+app.use('/user', UserRouter)
+app.use('/user/:id/accounts', AccountRouter)
+
+const port = 3000
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`)
 })

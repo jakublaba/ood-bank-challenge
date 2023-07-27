@@ -11,6 +11,9 @@
     "baseUrl": "./src",
     "paths": {
       "@model/*": ["domain/model/*"],
+      "@service/*": ["domain/service/*"],
+      "@router/*": ["infrastructure/router/*"],
+      "@controller/*": ["infrastructure/controller/*"]
     }
   },
   "include": ["src"],
