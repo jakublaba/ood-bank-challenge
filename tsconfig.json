@@ -15,6 +15,9 @@
     "moduleResolution": "node",
     "baseUrl": "./src",
     "paths": {
+      "@entrypoint": [
+        "index.ts"
+      ],
       "@model/*": [
         "domain/model/*"
       ],
@@ -29,6 +32,9 @@
       ],
       "@error/*": [
         "infrastructure/error/*"
+      ],
+      "@middleware/*": [
+        "infrastructure/middleware/*"
       ],
       "@router/*": [
         "infrastructure/router/*"
