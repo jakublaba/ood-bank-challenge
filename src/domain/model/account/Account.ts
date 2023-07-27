@@ -2,14 +2,21 @@ import User from '@model/User'
 import Transaction, { createTransaction } from '@model/Transaction'
 import TransactionType from '@model/TransactionType'
 import TransactionStatus from '@model/TransactionStatus'
+import {v4} from "uuid";
 
 abstract class Account {
+  protected readonly _uuid: string
   protected readonly _transactions: Transaction[]
 
   protected constructor(
     protected _owner: User
   ) {
+    this._uuid = v4()
     this._transactions = []
+  }
+
+  get uuid(): string {
+    return this._uuid
   }
 
   get transactions(): Transaction[] {

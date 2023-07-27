@@ -1,20 +1,20 @@
 import { z } from "zod"
 import TransactionType from '@model/TransactionType'
-import { v4 as uuid } from 'uuid'
 import TransactionStatus from '@model/TransactionStatus'
+import {v4} from "uuid";
 
 export const createTransaction = (
   amount: number,
   type: z.infer<typeof TransactionType>,
   status: z.infer<typeof TransactionStatus>): Transaction => {
-  const id = uuid()
+  const uuid = v4()
   const date = new Date()
 
-  return { id, type, status, amount, date }
+  return { uuid, type, status, amount, date }
 }
 
 export const TransactionSchema = z.object({
-  id: z.string().uuid('Not a valid UUID'),
+  uuid: z.string().uuid('Not a valid UUID'),
   type: TransactionType,
   status: TransactionStatus,
   amount: z.number().positive('Transaction amount must be positive'),
