@@ -1,12 +1,8 @@
-class ResourceNotFoundError extends Error {
-  private readonly _status = 404
+import ApiError from '@error/ApiError'
 
+class ResourceNotFoundError extends ApiError {
   constructor(resourceUUID: string) {
-    super(`${resourceUUID}: resource not found`)
-  }
-
-  get status() {
-    return this._status
+    super(404, `${resourceUUID}: resource not found`)
   }
 }
 
