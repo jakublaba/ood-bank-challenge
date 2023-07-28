@@ -4,6 +4,7 @@ import AccountRouter from '@router/AccountRouter'
 import bodyParser from 'body-parser'
 import ApiErrorHandler from '@middleware/ApiErrorHandler'
 
+
 const app = express()
 app.use(bodyParser.json())
 app.use('/user/:userUUID/account', AccountRouter)
