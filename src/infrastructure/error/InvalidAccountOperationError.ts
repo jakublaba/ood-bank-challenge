@@ -1,12 +1,8 @@
-class InvalidAccountOperationError extends Error {
-  private readonly _status = 405
+import ApiError from '@error/ApiError'
 
+class InvalidAccountOperationError extends ApiError {
   constructor(message: string) {
-    super(message)
-  }
-
-  get status() {
-    return this._status
+    super(405, message)
   }
 }
 

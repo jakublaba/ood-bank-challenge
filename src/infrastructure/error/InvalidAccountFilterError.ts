@@ -1,12 +1,8 @@
-class InvalidAccountFilterError extends Error {
-  private readonly _status = 400
+import ApiError from '@error/ApiError'
 
+class InvalidAccountFilterError extends ApiError {
   constructor(message: string) {
-    super(message)
-  }
-
-  get status() {
-    return this._status
+    super(400, message)
   }
 }
 
