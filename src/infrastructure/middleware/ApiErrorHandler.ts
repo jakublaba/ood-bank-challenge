@@ -9,6 +9,7 @@ const ApiErrorHandler = (
 ) => {
   if (err instanceof ApiError) {
     res.status(err.status).send(err.message)
+    return
   }
   res.status(500).send('Server has encountered a skill issue')
 }
